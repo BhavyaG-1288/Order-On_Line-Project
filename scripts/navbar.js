@@ -6,7 +6,8 @@ const navbar = ()=> {
     <div id ="nav-links">
         <a href="signup.html">Signup</a>
         <a href="login.html">Login</a>
-        <a href="todos.html">Todos</a>
+        <a href="products.html">Products</a>  
+        <button id ="product"></button>      
         <a href="expenses.html">Expenses</a>
     </div>
     </div>`;
