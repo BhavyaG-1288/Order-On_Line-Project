@@ -1,13 +1,16 @@
 body{
     margin: 0;
     min-height: 100vh;
-
+    background-size: 80%;
+    background-image: url("/assets/image.png");
+    background-size: cover;
+    backdrop-filter: blur;
 }
 #nav {
     width:100%;
     background-color: rgb(212, 131, 131);
     justify-content: space-between;
-    height:50px;
+    height:60px;
     
 
 }
@@ -36,15 +39,15 @@ a:hover{
     transition:color 1s;
 }
 #main{
-    width: 60%;
+    width: 75%;
     margin:4rem auto ;
-    color:rgb(228, 134, 134);
+    color:rgb(144, 54, 54);
     text-align: center;
 }
 #main-btn{
     width:10rem;
     height:2rem;
-    background-color: rgb(175, 71, 71);
+    background-color: rgb(170, 47, 47);
     color: white;
     border:none;
     border-radius: 5px;
@@ -53,9 +56,14 @@ a:hover{
     background-color: rgb(248, 139, 139);
 
 }
+#shop{
+    font-size: 50px;
+    color: rgb(7, 112, 112);
+    font-weight: bolder;
+}
 #header-span{
-    color:cornflowerblue;
-    font-size: larger;
+    color:rgb(51, 99, 188);
+    font-size:35px;
 }
 #blink {
     animation: blink-animation 1s ease-in-out infinite;
@@ -68,6 +76,10 @@ a:hover{
     100% {
         opacity: 1; /* The text will reappear */
     }
+}
+image{
+    background:image("./assets/image.png")
+
 }
 #footer{
     position: absolute;
