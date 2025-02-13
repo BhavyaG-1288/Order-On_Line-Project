@@ -1,70 +1,55 @@
-import { baseUrl } from "./baseUrl.js";
-
-
-console.log(baseUrl)
+import  {baseUrl} from "./baseUrl.js";
 
 const products = {
     vegetables: [
-        { name: "Carrot", price: 2, image: "assets/images/vegtables/carrot.jpg" },
-        { name: "Broccoli", price: 3, image: "https://via.placeholder.com/200x150?text=Broccoli" },
-        { name: "Potato", price: 1, image: "https://via.placeholder.com/200x150?text=Potato" }
+      { name: "Carrot", price: "$1.50", image: "https://via.placeholder.com/150" },
+      { name: "Tomato", price: "$2.00", image: "https://via.placeholder.com/150 },
+      { name: "Broccoli", price: "$1.80", image: "https://via.placeholder.com/150" }
     ],
     fruits: [
-        { name: "Apple", price: 4, image: "https://via.placeholder.com/200x150?text=Apple" },
-        { name: "Banana", price: 1, image: "https://via.placeholder.com/200x150?text=Banana" },
-        { name: "Grapes", price: 5, image: "https://via.placeholder.com/200x150?text=Grapes" }
-    ],
-    dairy: [
-        { name: "Milk", price: 2, image: "https://via.placeholder.com/200x150?text=Milk" },
-        { name: "Cheese", price: 5, image: "https://via.placeholder.com/200x150?text=Cheese" },
-        { name: "Yogurt", price: 3, image: "https://via.placeholder.com/200x150?text=Yogurt" }
+      { name: "Apple", price: "$1.00", image: "https://via.placeholder.com/150" },
+      { name: "Banana", price: "$0.50", image: "https://via.placeholder.com/150" },
+      { name: "Orange", price: "$1.20", image: "https://via.placeholder.com/150" }
     ],
     beauty: [
-        { name: "Shampoo", price: 8, image: "https://via.placeholder.com/200x150?text=Shampoo" },
-        { name: "Conditioner", price: 7, image: "https://via.placeholder.com/200x150?text=Conditioner" },
-        { name: "Face Cream", price: 15, image: "https://via.placeholder.com/200x150?text=Face+Cream" }
+      { name: "Face Cream", price: "$10.00", image: "https://via.placeholder.com/150" },
+      { name: "Shampoo", price: "$8.00", image: "https://via.placeholder.com/150" },
+      { name: "Lipstick", price: "$5.00", image: "https://via.placeholder.com/150" }
+    ],
+    cakes: [
+      { name: "Chocolate Cake", price: "$15.00", image: "https://via.placeholder.com/150" },
+      { name: "Vanilla Cake", price: "$12.00", image: "https://via.placeholder.com/150" },
+      { name: "Strawberry Cake", price: "$18.00", image: "https://via.placeholder.com/150" }
+    ],
+    dairy: [
+      { name: "Milk", price: "$3.00", image: "https://via.placeholder.com/150" },
+      { name: "Cheese", price: "$5.00", image: "https://via.placeholder.com/150" },
+      { name: "Yogurt", price: "$2.50", image: "https://via.placeholder.com/150" }
     ]
-};
-
-// Function to display products based on selected category
-function displayProducts(category) {
-    const productsList = document.getElementById("productsList");
-    productsList.innerHTML = ""; // Clear any existing products
-
-    const categoryProducts = products[category] || [];
-    categoryProducts.forEach(product => {
-        const productElement = document.createElement("div");
-        productElement.classList.add("product");
-
-        const productImage = document.createElement("img");
-        productImage.src = product.image;
-        productElement.appendChild(productImage);
-
-        const productName = document.createElement("h3");
-        productName.textContent = product.name;
-        productElement.appendChild(productName);
-
-        const productPrice = document.createElement("p");
-        productPrice.textContent = `$${product.price}`;
-        productElement.appendChild(productPrice);
-
-        productsList.appendChild(productElement);
+  };
+  
+  // Function to render products
+  function renderProducts(category, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = ""; // Clear previous content
+  
+    products[category].forEach(product => {
+      const productCard = `
+        <div class="product-card">
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.price}</p>
+          <button>Add to Cart</button>
+        </div>
+      `;
+      container.innerHTML += productCard;
     });
-}
-
-// Event listeners for category buttons
-document.getElementById("vegetablesBtn").addEventListener("click", function() {
-    displayProducts("vegetables");
-});
-
-document.getElementById("fruitsBtn").addEventListener("click", function() {
-    displayProducts("fruits");
-});
-
-document.getElementById("dairyBtn").addEventListener("click", function() {
-    displayProducts("dairy");
-});
-
-document.getElementById("beautyBtn").addEventListener("click", function() {
-    displayProducts("beauty");
-});
+  }
+  
+  // Render products for each category
+  renderProducts("vegetables", "vegetables-container");
+  renderProducts("fruits", "fruits-container");
+  renderProducts("beauty", "beauty-container");
+  renderProducts("cakes", "cakes-container");
+  renderProducts("dairy", "dairy-container");
+  products();

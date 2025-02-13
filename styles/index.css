@@ -2,7 +2,7 @@ body{
     margin: 0;
     min-height: 100vh;
     background-size: 80%;
-    background-image: url("/assets/image.png");
+   
     background-size: cover;
     backdrop-filter: blur;
 }
@@ -79,6 +79,11 @@ a:hover{
 }
 image{
     background:image("./assets/image.png")
+
+}
+#Vegetables{
+    display:grid;
+    grid-template-columns: repeat();
 
 }
 #footer{

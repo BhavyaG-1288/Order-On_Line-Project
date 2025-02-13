@@ -1,7 +1,7 @@
-import { baseUrl } from "./baseUrl.js";
+import  {baseUrl} from "./baseUrl.js";
 
 
-console.log(baseUrl)
+//console.log(baseUrl)
 
 let form = document.getElementById("form");
 form.addEventListener("submit", function () {
@@ -13,7 +13,7 @@ form.addEventListener("submit", function () {
   let mobile = form.mobile.value;
   let userObj = { username, email, password, gender, mobile };
   /// logic is check whether email is present in the DB
-  fetch(`${baseUrl}/user`)
+  fetch(`${baseUrl}/users`)
     .then((res) => res.json())
     .then((data) => {
       let user = data.filter((el, i) => el.email == email);
@@ -24,7 +24,7 @@ form.addEventListener("submit", function () {
       } else {
         /// user is not present
         /// push the user into json server
-        fetch(`${baseUrl}/user`, {
+        fetch(`${baseUrl}/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
