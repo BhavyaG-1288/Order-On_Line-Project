@@ -1,56 +1,37 @@
-import { baseUrl } from "./baseurl";
-document.addEventListener("DOMContentLoaded", function () {
-    displayCart();
-});
+import { baseUrl } from "../scripts/baseUrl.js";
 
-function displayCart() {
-    let cartContainer = document.getElementById("cart-container");
-    let cartTotal = document.getElementById("cart-total");
-    let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+function loadCart() {
+    fetch("https://nebulous-jazzy-quince.glitch.me/cart")
+        .then(res => res.json())
+        .then(cartItems => {
+            let cartContainer = document.getElementById("cart-container");
+            cartContainer.innerHTML = ""; // Clear previous items
 
-    if (cartItems.length === 0) {
-        cartContainer.innerHTML = "<h3>Your cart is empty!</h3>";
-        return;
-    }
-
-    fetch("baseUrl")
-        .then(response => response.json())
-        .then(products => {
-            cartContainer.innerHTML = "";
-            let total = 0;
-
-            cartItems.forEach(productId => {
-                let product = products.find(p => p.id === productId);
-                if (product) {
-                    total += product.price;
-
-                    let cartItem = document.createElement("div");
-                    cartItem.classList.add("cart-item");
-
-                    cartItem.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <h3>${product.name}</h3>
-                        <p>₹${product.price}</p>
-                        <button onclick="removeFromCart(${product.id})">Remove</button>
-                    `;
-                    cartContainer.appendChild(cartItem);
-                }
+            cartItems.forEach(item => {
+                let itemDiv = document.createElement("div");
+                itemDiv.classList.add("cart-item");
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>Price: $${item.price}</p>
+                    <button class="remove-from-cart" onclick="removeFromCart(${item.id})">Remove</button>
+                `;
+                cartContainer.appendChild(itemDiv);
             });
-
-            cartTotal.innerText = total;
         })
-        .catch(error => console.error("Error loading cart:", error));
+        .catch(err => console.error("Error loading cart:", err));
 }
 
-// Remove item from cart
+window.onload = loadCart; // Load cart on page load
 function removeFromCart(productId) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart = cart.filter(id => id !== productId);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    displayCart();
+    fetch(`https://nebulous-jazzy-quince.glitch.me/cart/${productId}`, {
+        method: "DELETE"
+    })
+    .then(() => {
+        alert("Item removed from cart!");
+        loadCart(); // Refresh cart
+    })
+    .catch(err => console.error("Error removing item:", err));
 }
 
-// Proceed to checkout
-function checkout() {
-    window.location.href = "checkout.html";
-}
+

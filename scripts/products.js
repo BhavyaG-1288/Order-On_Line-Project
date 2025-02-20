@@ -51,8 +51,6 @@ function displayProducts(products) {
             productDiv.classList.add("product");
 
             let imagePath = product.image.replace("Order-On_Line-Project/", ""); 
-            ? product.image  // If it's an absolute URL
-            : `./${product.image}`; // Ensure relative path works
 
 
 
@@ -74,9 +72,40 @@ function displayProducts(products) {
 }
 // Dummy functions for add to cart / remove from cart (implement these in cart.js)
 function addToCart(productId) {
-    console.log("Added to cart:", productId);
+    alert("item added to cart.");
+    fetch("https://nebulous-jazzy-quince.glitch.me/cart")
+    .then(res =>res.json())
+    .then(products=>{
+        let product =products.find(item=>item.id ==productId);
+        if(!product){
+            console.log("Product Not Found")
+        }
+    })
+    fetch("https://nebulous-jazzy-quince.glitch.me/cart", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({id:productId, quality:1})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Added to cart:", data);
+        alert("Product added to cart!");
+    })
+    .catch(error => console.error("Error adding to cart:", error));
 }
 
 function removeFromCart(productId) {
-    console.log("Removed from cart:", productId);
+    function removeFromCart(productId) {
+        fetch(`https://nebulous-jazzy-quince.glitch.me/cart/${productId}`, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Removed from cart:", productId);
+            alert("Product removed from cart!");
+        })
+        .catch(error => console.error("Error removing from cart:", error));
+    }
 }
