@@ -1,63 +1,21 @@
-#fruits-container{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:30px;
-  padding: 20px;
-  width:100%;
-  min-height: calc(100vh-150px);
-  
+.product {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  display: inline-block;
+  text-align: center;
+  background-color: #f9f9f9;
 }
 
-#fruits{
-  width:100%;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap:5px;
-  padding:10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-#fruits img{
-  width:180px;
-  height:170px;
+img {
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  
-} 
-#fruits h4{
-  text-align: center;
-  font-weight:bolder;
-  font-family: 'Times New Roman', Times, serif;
-  margin-bottom: -35px;
-  
 }
-#fruits h6 {
-  text-align: center;
-  color: darkslategray;
-  font-weight: bolder;
-  font-size:medium;
-  margin-bottom: -35px;
-  
-}
-#price{
-  display: flex;
-  justify-content:space-between;
-  justify-content: space-evenly;
-  gap:70px;
- 
-}
-button{
-  background-color: brown;
-  width:50px;
-  height: 30px;
-  margin-top: 35px;
-  margin-right: 5px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-p{
-  margin-left: 10px;
-  margin-top: 35px;
+
+.add-to-cart, .remove-from-cart {
+  margin-top: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }

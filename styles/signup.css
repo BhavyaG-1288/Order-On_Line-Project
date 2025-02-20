@@ -1,3 +1,10 @@
+
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('../assets/images/background1.jpg')
+       
+            
+}
 #form{
     border:1px, solid rgb(175, 63, 63);
     border-radius: 5px;
@@ -9,7 +16,7 @@
     gap:20px;
     padding :20px;
     text-align:center;
-    color: white;
+    color: rgb(230, 214, 214);
     background-color: rgb(236, 148, 148);
 }
 

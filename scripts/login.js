@@ -1,40 +1,32 @@
+import { baseUrl } from "../scripts/baseUrl.js";
 
-import { baseUrl } from "./baseUrl.js";
-
-
-console.log(baseUrl)
-
-let form =document.getElementById("form");
-form.addEventListener("submit", function(){
+let form = document.getElementById("form");
+form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    let email =form.email.value;
-    let password =form.password.value;
-    let uersObj={email, password};
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
-    fetch(`${baseUrl}/users`)
-    .then((res)=>res.json())
-    .then((data)=>{
-        let user = data.filter((el, i) => el.email == email);
+    // Check if user exists
+    fetch(`${baseUrl}/user`)
+    .then(res => res.json())
+    .then((data) => {
+      console.log("Fetched Users:",data);
+        
+      let user = data.filter((el) => el.email == email);
         if (user.length != 0) {
-          /// user present
-          alert("User already registred, please login");
-          window.location.href = "products.html"
+            // Check password
+            if (user[0].password == password) {
+                alert("Login Success...");
+                localStorage.setItem("loginData", JSON.stringify(user[0]));
+                window.location.href = "products.html";
+            } else {
+                alert("Password is wrong, please login with correct password");
+            }
         } else {
-            fetch(`${baseUrl}/users`,{
-                method:"POST",
-                headers:{
-                    "content-type":"application/json",
-                },
-                body:JSON.stringify(userObj),
-            }).then(()=>{
-                alert("Login Successfull");
-                window.location.href ="products.html"
-            });
+            alert("User not registered, Please signup....");
+            window.location.href = "signup.html";
         }
-        })
-        .catch((err)=>{
-            console.log(err);
-            alert("Something went wrong, please try again later")
-        });
-    });
+    })
+    .catch(err => console.error("Error:", err));
+});

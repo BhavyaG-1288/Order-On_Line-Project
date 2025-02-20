@@ -5,9 +5,11 @@ body{
     margin: 0;
     min-height: 100vh;
     background-size: 80%;
-   
+    background-image: "";
     background-size: cover;
     backdrop-filter: blur;
+    background: linear-gradient(rgba(0, 0, 0, 1.5), rgba(0, 0, 0, 0.5)), 
+    url('../assets/images/background1.jpg')
 }
 #nav {
     width:100%;
@@ -20,17 +22,20 @@ body{
 #nav-container{
  display:flex;
  justify-content: space-between;
+ 
 }
 #nav-links{
  display: flex;
  justify-content: space-between;
- width:40%;
+ width:20%;
  margin-right: 20%;
  padding: 10px;
+ gap:20px;
 }
 #logo{
     margin-left: 5%;
-    padding:10px;
+    padding:5px;
+    margin-top: 5px;
 }
 a{
     color: beige;
@@ -41,16 +46,32 @@ a:hover{
     color:brown;
     transition:color 1s;
 }
+#search-container{
+    margin-right: 450px;
+    margin-top: 10px;
+    width:40px;
+    height: 100px;
+    height: 30%;
+    border-radius: 5px;
+}
+.search-icon {
+   right: 5px;
+    top: 50%;
+    transform: translateY(42%);
+    margin-left:-170px;
+    hegith:50px
+
+}
 #main{
     width: 75%;
     margin:4rem auto ;
-    color:rgb(144, 54, 54);
+    color:rgb(144, 28, 28);
     text-align: center;
 }
 #main-btn{
     width:10rem;
     height:2rem;
-    background-color: rgb(170, 47, 47);
+    background-color: rgb(183, 84, 84);
     color: white;
     border:none;
     border-radius: 5px;
@@ -61,11 +82,11 @@ a:hover{
 }
 #shop{
     font-size: 50px;
-    color: rgb(7, 112, 112);
+    color: rgb(58, 173, 173);
     font-weight: bolder;
 }
 #header-span{
-    color:rgb(51, 99, 188);
+    color:rgb(41, 75, 137);
     font-size:35px;
 }
 #blink {
@@ -100,202 +121,80 @@ h1{
     margin-top: -50px;
     margin-left: 50px;
 }
-#vegetables{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:30px;
-    padding: 20px;
-    width:70%;
-    min-height: calc(100vh-150px);
-    margin-top: -30px;
-    gap:100px;
+.products-container {
+    width: 97%;
+    margin: 20px auto;
 }
-#veggies{
-    width:100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.product {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    gap:5px;
-    padding:10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-   
 }
-#veggies img{
-    width:180px;
+
+.product img {
+    width: 100%;
     height: 180px;
     object-fit: cover;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
-} 
-#veggies h4{
-    text-align: center;
-    font-weight:bolder;
-    font-family: 'Times New Roman', Times, serif;
-    margin-bottom: -35px;
-    
+    border-radius: 8px;
 }
-#veggies h6 {
-    text-align: center;
-    color: darkslategray;
-    font-weight: bolder;
-    font-size:medium;
-    margin-bottom: -35px;
-    
-}
-#price{
-    display: flex;
-    justify-content:space-between;
-    justify-content: space-evenly;
-    gap:70px;
-   
-}
-button{
-    background-color: brown;
-    width:50px;
-    height: 30px;
-    margin-top: 35px;
-    margin-right: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-p{
-    margin-left: 10px;
-    margin-top: 35px;
-}
-#fruits-container{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:30px;
-    padding: 20px;
-    width:100%;
-    min-height: calc(100vh-150px);
-    margin-top: -50px;
-    gap:100px;
+#middleimg{
+    gap:10px;
+    margin-top: 10px;
 }
 
-#fruits{
-    width:100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap:5px;
-    padding:10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-#fruits img{
-    width:180px;
-    height:170px;
-    object-fit: cover;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
-} 
-#fruits h4{
-    text-align: center;
-    font-weight:bolder;
-    font-family: 'Times New Roman', Times, serif;
-    margin-bottom: -35px;
-    
-}
-#fruits h6 {
-    text-align: center;
-    color: darkslategray;
-    font-weight: bolder;
-    font-size:medium;
-    margin-bottom: -35px;
-    
-}
-#price{
-    display: flex;
-    justify-content:space-between;
-    justify-content: space-evenly;
-    gap:70px;
-   
-}
-button{
-    background-color: brown;
-    width:50px;
-    height: 30px;
-    margin-top: 35px;
-    margin-right: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-p{
-    margin-left: 10px;
-    margin-top: 35px;
-}
-#dairy-container{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:30px;
-    padding: 20px;
-    width:100%;
-    min-height: calc(100vh-150px);
-    margin-top: -50px;
-    gap:100px;
+.product h3 {
+    font-size: 18px;
+    margin: 10px 0;
 }
 
-#dairy{
-    width:100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap:5px;
-    padding:10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+.product p {
+    font-size: 14px;
+    color: #666;
 }
-#dairy img{
-    width:180px;
-    height:170px;
-    object-fit: cover;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
-} 
-#dairy h4{
-    text-align: center;
-    font-weight:bolder;
-    font-family: 'Times New Roman', Times, serif;
-    margin-bottom: -35px;
-    
+
+.price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
 }
-#dairy h6 {
-    text-align: center;
-    color: darkslategray;
-    font-weight: bolder;
-    font-size:medium;
-    margin-bottom: -35px;
-    
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 14px;
+    margin-left: 5px;
 }
-#price{
-    display: flex;
-    justify-content:space-between;
-    justify-content: space-evenly;
-    gap:70px;
-   
+
+.add-to-cart {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
 }
-button{
-    background-color: brown;
-    width:50px;
-    height: 30px;
-    margin-top: 35px;
-    margin-right: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+.add-to-cart:hover {
+    background-color: #e63939;
 }
-p{
-    margin-left: 10px;
-    margin-top: 35px;
-}
-#b-products{
-    width:100%;
-    height: 30%;
-}
+
 #footer{
   
     bottom: 0%;

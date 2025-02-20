@@ -1,43 +1,32 @@
-import  {baseUrl} from "./baseUrl.js";
+import { baseUrl } from "../scripts/baseUrl.js";
 
+document.getElementById('form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent default form submission
 
-//console.log(baseUrl)
+    // Get input values
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-let form = document.getElementById("form");
-form.addEventListener("submit", function () {
-  event.preventDefault();
-  let username = form.username.value;
-  let email = form.email.value;
-  let password = form.password.value;
-  let gender = form.gender.value;
-  let mobile = form.mobile.value;
-  let userObj = { username, email, password, gender, mobile };
-  /// logic is check whether email is present in the DB
-  fetch(`${baseUrl}/users`)
-    .then((res) => res.json())
-    .then((data) => {
-      let user = data.filter((el, i) => el.email == email);
-      if (user.length != 0) {
-        /// user present
-        alert("User already registred, please login");
-        window.location.href = "login.html"
-      } else {
-        /// user is not present
-        /// push the user into json server
-        fetch(`${baseUrl}/users`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(userObj),
-        }).then(() => {
-          alert("Signup Sucessfull");
-          window.location.href = "login.html"
-        });
-      }
+    if (!username || !email || !password) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    // Object to send to db.json
+    const userData = { username, email, password };
+
+    // Send Data to JSON Server
+    fetch(`${baseUrl}/User`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
     })
-    .catch((err) => {
-      console.log(err);
-      alert("Something wenr wrong, Please try again later");
-    });
+    .then(res => res.json())
+    .then(data => {
+        console.log("Response:",data);
+        alert("Signup successful! Redirecting to login...");
+        window.location.href = "login.html"; // Redirect after signup
+    })
+    .catch(err => console.error("Error:", err));
 });

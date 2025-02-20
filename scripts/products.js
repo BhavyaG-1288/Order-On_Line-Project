@@ -1,55 +1,82 @@
-import  {baseUrl} from "./baseUrl.js";
+import { baseUrl } from "../scripts/baseUrl.js";
 
-const products = {
-    vegetables: [
-      { name: "Carrot", price: "$1.50", image: "https://via.placeholder.com/150" },
-      { name: "Tomato", price: "$2.00", image: "https://via.placeholder.com/150 },
-      { name: "Broccoli", price: "$1.80", image: "https://via.placeholder.com/150" }
-    ],
-    fruits: [
-      { name: "Apple", price: "$1.00", image: "https://via.placeholder.com/150" },
-      { name: "Banana", price: "$0.50", image: "https://via.placeholder.com/150" },
-      { name: "Orange", price: "$1.20", image: "https://via.placeholder.com/150" }
-    ],
-    beauty: [
-      { name: "Face Cream", price: "$10.00", image: "https://via.placeholder.com/150" },
-      { name: "Shampoo", price: "$8.00", image: "https://via.placeholder.com/150" },
-      { name: "Lipstick", price: "$5.00", image: "https://via.placeholder.com/150" }
-    ],
-    cakes: [
-      { name: "Chocolate Cake", price: "$15.00", image: "https://via.placeholder.com/150" },
-      { name: "Vanilla Cake", price: "$12.00", image: "https://via.placeholder.com/150" },
-      { name: "Strawberry Cake", price: "$18.00", image: "https://via.placeholder.com/150" }
-    ],
-    dairy: [
-      { name: "Milk", price: "$3.00", image: "https://via.placeholder.com/150" },
-      { name: "Cheese", price: "$5.00", image: "https://via.placeholder.com/150" },
-      { name: "Yogurt", price: "$2.50", image: "https://via.placeholder.com/150" }
-    ]
-  };
-  
-  // Function to render products
-  function renderProducts(category, containerId) {
-    const container = document.getElementById(containerId);
+document.addEventListener("DOMContentLoaded", function () {
+    fetchProducts();
+});
+
+// Function to fetch products from the API
+function fetchProducts() {
+    console.log("fetching Products..");
+
+    fetch("https://nebulous-jazzy-quince.glitch.me/products") 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch products");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Fetched products:", data); // Debugging
+            displayProducts(data);
+        })
+        .catch(error =>("Error fetching products:", error));
+}
+document.addEventListener("DOMContentLoaded", fetchProducts);
+
+// Function to display products on the page
+function displayProducts(products) {
+   // console.log("Running displayProducts function...");
+
+    let container = document.getElementById("products-container");
+    //console.log("checking container:", container);
+
+    if (!container) {
+        console.error(" Error: #products-container not found in HTML!");
+        return;
+    }
+
     container.innerHTML = ""; // Clear previous content
-  
-    products[category].forEach(product => {
-      const productCard = `
-        <div class="product-card">
-          <img src="${product.image}" alt="${product.name}">
-          <h3>${product.name}</h3>
-          <p>${product.price}</p>
-          <button>Add to Cart</button>
-        </div>
-      `;
-      container.innerHTML += productCard;
+
+    if (!products||products.length === 0) {
+        container.innerHTML = "<p>No products available.</p>";
+        console.warn(" No products found!");
+        return;
+    }
+
+    Object.keys(products).forEach(category => {
+        let categoryProducts = products[category]; // Array of products
+
+        categoryProducts.forEach(product => {
+            let productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+
+            let imagePath = product.image.replace("Order-On_Line-Project/", ""); 
+            ? product.image  // If it's an absolute URL
+            : `./${product.image}`; // Ensure relative path works
+
+
+
+            productDiv.innerHTML = `
+           <img src="${imagePath}" alt="${product.name}" width="150" onerror="this.onerror=null; this.src='assets/images/default.jpg';">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <p>Price: $${product.price}</p>
+                <button class="add-to-cart">Add to Cart</button>
+                <button class="remove-from-cart">Remove</button>
+            `;
+
+            container.appendChild(productDiv);
+        });
     });
-  }
-  
-  // Render products for each category
-  renderProducts("vegetables", "vegetables-container");
-  renderProducts("fruits", "fruits-container");
-  renderProducts("beauty", "beauty-container");
-  renderProducts("cakes", "cakes-container");
-  renderProducts("dairy", "dairy-container");
-  products();
+
+    console.log("✅ Products displayed successfully!");
+}
+// Dummy functions for add to cart / remove from cart (implement these in cart.js)
+function addToCart(productId) {
+    console.log("Added to cart:", productId);
+}
+
+function removeFromCart(productId) {
+    console.log("Removed from cart:", productId);
+}
