@@ -13,15 +13,8 @@ document.getElementById("search-bar").addEventListener("keyup", function() {
         }
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const addToCartButtons = document.querySelectorAll(".add-to-cart");
-
-    addToCartButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            alert("Product added to cart!");
-            // You can implement localStorage to store the cart items
-        });
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    fetchProducts();
 });
 
 document.querySelectorAll(".product-link").forEach((product) => {

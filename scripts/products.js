@@ -1,111 +1,101 @@
 import { baseUrl } from "../scripts/baseUrl.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-    fetchProducts();
-});
+const productsContainer = document.getElementById("products-container");
 
-// Function to fetch products from the API
-function fetchProducts() {
-    console.log("fetching Products..");
+// Define categories
+const categories = ["Vegetables", "Fruits" , "Dairy", "Baby Care"];
 
-    fetch("https://nebulous-jazzy-quince.glitch.me/products") 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to fetch products");
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Fetched products:", data); // Debugging
-            displayProducts(data);
-        })
-        .catch(error =>("Error fetching products:", error));
-}
-document.addEventListener("DOMContentLoaded", fetchProducts);
+// Sample product images (corrected paths)
+const productImages = {
+    "Vegetables": [
+        "assets/images/vegtables/Beans.jpg",
+        "assets/images/vegtables/beetroot.jpg",
+        "assets/images/vegtables/bellpapper.jpg",
+        "assets/images/vegtables/Brinjol.jpg",
+        "assets/images/vegtables/cabbage.jpg",
+        "assets/images/vegtables/potato.jpg",
+        "assets/images/vegtables/Radish.jpg",
+        "assets/images/vegtables/spinach.jpg",
+        "assets/images/vegtables/tomoto.jpg",
+        "assets/images/vegtables/bellpapper.jpg"
 
-// Function to display products on the page
-function displayProducts(products) {
-   // console.log("Running displayProducts function...");
-
-    let container = document.getElementById("products-container");
-    //console.log("checking container:", container);
-
-    if (!container) {
-        console.error(" Error: #products-container not found in HTML!");
-        return;
-    }
-
-    container.innerHTML = ""; // Clear previous content
-
-    if (!products||products.length === 0) {
-        container.innerHTML = "<p>No products available.</p>";
-        console.warn(" No products found!");
-        return;
-    }
-
-    Object.keys(products).forEach(category => {
-        let categoryProducts = products[category]; // Array of products
-
-        categoryProducts.forEach(product => {
-            let productDiv = document.createElement("div");
-            productDiv.classList.add("product");
-
-            let imagePath = product.image.replace("Order-On_Line-Project/", ""); 
+    ],
+    "Dairy": [
+        "assets/images/dairy/badham.jpg",
+        "assets/images/dairy/butter.jpg",
+        "assets/images/dairy/curd.jpg",
+        "assets/images/dairy/ghee.jpg",
+        "assets/images/dairy/milk.jpg",
+        "assets/images/dairy/paneer.jpg"
 
 
+    ],
+    "Baby Care": [
+        "assets/images/babyproducts/baby.jpg",
+        "assets/images/babyproducts/jin baby.jpg",
+        "assets/images/babyproducts/baby.jpg",
+        "assets/images/babyproducts/atogla.jpg",
+        "assets/images/babyproducts/himalaya.jpg",
+        "assets/images/babyproducts/johnsonbaby.jpg",
+        "assets/images/babyproducts/mamaearth.jpg",
+        "assets/images/babyproducts/pamper.jpg",
+        "assets/images/babyproducts/wipes.jpg",
+    ],
+    "Fruites": [
+        "assets/images/fruits/apples.jpg",
+        "assets/images/fruits/banana.jpg",
+        "assets/images/fruits/dragon.jpg",
+        "assets/images/fruits/kiwi.jpg",
+        "assets/images/fruits/papaya.jpg",
+        "assets/images/fruits/pomogrante.jpg",
+        "assets/images/fruits/watermelon.jpg",
+        "assets/images/fruits/photo-1464965911861-746a04b4bca6.jpg"
+    ]
+};
 
-            productDiv.innerHTML = `
-           <img src="${imagePath}" alt="${product.name}" width="150" onerror="this.onerror=null; this.src='assets/images/default.jpg';">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>                <h3>${product.name}</h3>
-                <p>${product.description}</p>
-                <p>Price: $${product.price}</p>
-                <button class="add-to-cart">Add to Cart</button>
-                <button class="remove-from-cart">Remove</button>
-            `;
+const products = [];
+for (let i = 1; i <= 40; i++) {
+    const category = categories[i % categories.length]; // Assign category cyclically
 
-            container.appendChild(productDiv);
-        });
+    // Pick a random image
+    const images = productImages[category];
+    if (!images || images.length === 0) continue;
+
+    const image = images[Math.floor(Math.random() * images.length)];
+
+    // Extract a proper product name from the image filename
+    const imageName = image.split('/').pop().split('.')[0]; // Extract file name
+    const formattedName = imageName.charAt(0).toUpperCase() + imageName.slice(1); // Capitalize
+
+    products.push({
+        id: i,
+        name: formattedName, // Use extracted file name as product name
+        price: (Math.random() * 100).toFixed(2),
+        discount: `${Math.floor(Math.random() * 50)}%`,
+        category: category,
+        image: image
     });
-
-    console.log("✅ Products displayed successfully!");
-}
-// Dummy functions for add to cart / remove from cart (implement these in cart.js)
-function addToCart(productId) {
-    alert("item added to cart.");
-    fetch("https://nebulous-jazzy-quince.glitch.me/cart")
-    .then(res =>res.json())
-    .then(products=>{
-        let product =products.find(item=>item.id ==productId);
-        if(!product){
-            console.log("Product Not Found")
-        }
-    })
-    fetch("https://nebulous-jazzy-quince.glitch.me/cart", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({id:productId, quality:1})
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Added to cart:", data);
-        alert("Product added to cart!");
-    })
-    .catch(error => console.error("Error adding to cart:", error));
 }
 
-function removeFromCart(productId) {
-    function removeFromCart(productId) {
-        fetch(`https://nebulous-jazzy-quince.glitch.me/cart/${productId}`, {
-            method: "DELETE"
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Removed from cart:", productId);
-            alert("Product removed from cart!");
-        })
-        .catch(error => console.error("Error removing from cart:", error));
-    }
+// Function to render products
+function renderProducts() {
+    productsContainer.innerHTML = "";
+    products.forEach(product => {
+        const productDiv = document.createElement("div");
+        productDiv.classList.add("product-card");
+
+        productDiv.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <h3>${product.name}</h3> <!-- Now shows real product name -->
+            <p><strong>Price:</strong> $${product.price}</p>
+            <p><strong>Discount:</strong> ${product.discount}</p>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="remove">Remove</button>
+        `;
+
+        productsContainer.appendChild(productDiv);
+    });
 }
+
+// Render the products
+renderProducts();

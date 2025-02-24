@@ -1,37 +1,42 @@
 import { baseUrl } from "../scripts/baseUrl.js";
 
-function loadCart() {
-    fetch("https://nebulous-jazzy-quince.glitch.me/cart")
-        .then(res => res.json())
-        .then(cartItems => {
-            let cartContainer = document.getElementById("cart-container");
-            cartContainer.innerHTML = ""; // Clear previous items
+document.addEventListener("DOMContentLoaded", function () {
+    fetchCartItems();
+});
 
-            cartItems.forEach(item => {
-                let itemDiv = document.createElement("div");
-                itemDiv.classList.add("cart-item");
-                itemDiv.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
-                    <h3>${item.name}</h3>
-                    <p>Price: $${item.price}</p>
-                    <button class="remove-from-cart" onclick="removeFromCart(${item.id})">Remove</button>
-                `;
-                cartContainer.appendChild(itemDiv);
-            });
-        })
-        .catch(err => console.error("Error loading cart:", err));
+// Function to fetch and display cart items
+async function fetchCartItems() {
+    console.log("Fetching Cart Items...");
+    try {
+        let response = await fetch("https://nebulous-jazzy-quince.glitch.me/cart");
+        if (!response.ok) {
+            throw new Error("Failed to fetch cart items");
+        }
+        let cartItems = await response.json();
+        console.log("Cart items:", cartItems);
+        displayCartItems(cartItems);
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
+    }
 }
 
-window.onload = loadCart; // Load cart on page load
-function removeFromCart(productId) {
-    fetch(`https://nebulous-jazzy-quince.glitch.me/cart/${productId}`, {
-        method: "DELETE"
+// Function to display cart items on the cart page
+function displayCartItems(cartItems) {
+    let cartContainer = document.getElementById("cart-container");
+
+    if (!cartContainer) {
+        console.error("Error: #cart-container not found in HTML!");
+        return;
+    }
+
+    if (!cartItems || cartItems.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+    }
+
+    cartContainer.innerHTML = ""; // Clear previous cart items
+
+    cartItems.forEach(item => {
+        let cartDiv = document.create
     })
-    .then(() => {
-        alert("Item removed from cart!");
-        loadCart(); // Refresh cart
-    })
-    .catch(err => console.error("Error removing item:", err));
 }
-
-
