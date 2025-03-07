@@ -17,8 +17,9 @@ const navbar = ()=> {
         <a href="cart.html">cart</a>
     </div>
      </div>
+     <div>
     </div>`;
 
-    document.getElementById("nav").innerHTML =card;
+    document.getElementById("nav").innerHTML = card;
 };
 navbar();

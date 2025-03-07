@@ -1,6 +1,7 @@
+import { baseUrl } from "../scripts/baseUrl";
 
 
-document.getElementById("search-bar").addEventListener("keyup", function() {
+document.getElementById("search-bar").addEventListener("search-bar", function() {
     let query = this.value.toLowerCase();
     let products = document.querySelectorAll(".product");
 
@@ -14,7 +15,7 @@ document.getElementById("search-bar").addEventListener("keyup", function() {
     });
 });
 document.addEventListener("DOMContentLoaded", () => {
-    fetchProducts();
+   
 });
 
 document.querySelectorAll(".product-link").forEach((product) => {
@@ -28,3 +29,12 @@ document.querySelectorAll(".product-link").forEach((product) => {
       }
     });
   });
+
+
+  document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        const productId = button.getAttribute("data-id");
+        addToCart(productId);
+    });
+});
+

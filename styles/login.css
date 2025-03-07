@@ -1,3 +1,17 @@
+#auth-container {
+    width: 300px;
+    margin: auto;
+    text-align: center;
+}
+
+#auth-toggle button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
 #form{
     border:1px, solid rgb(175, 63, 63);
     border-radius: 5px;

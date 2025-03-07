@@ -7,4 +7,3 @@ const footer =()=>{
     document.getElementById("footer").innerHTML =card;
 };
 
-footer();

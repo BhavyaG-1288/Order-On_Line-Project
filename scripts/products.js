@@ -2,6 +2,7 @@ import { baseUrl } from "../scripts/baseUrl.js";
 
 const productsContainer = document.getElementById("products-container");
 
+
 // Define categories
 const categories = ["Vegetables", "Fruits" , "Dairy", "Baby Care"];
 
@@ -74,11 +75,13 @@ for (let i = 1; i <= 40; i++) {
         discount: `${Math.floor(Math.random() * 50)}%`,
         category: category,
         image: image
+    
     });
 }
 
 // Function to render products
 function renderProducts() {
+
     productsContainer.innerHTML = "";
     products.forEach(product => {
         const productDiv = document.createElement("div");
@@ -99,3 +102,20 @@ function renderProducts() {
 
 // Render the products
 renderProducts();
+
+
+// Add to Cart function
+fetch(`${baseUrl}/cart`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Data)
+})
+.then((res) => res.json())
+.then((data) => {
+    console.log("Response:",data);
+    alert("item added successful! Redirecting to carts page...");
+    window.location.href = "cart.html"; // Redirect after signup
+})
+.catch(err => console.error("Error:", err));
+
+
